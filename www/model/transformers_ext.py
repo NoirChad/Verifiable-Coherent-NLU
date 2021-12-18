@@ -139,6 +139,8 @@ class ClassificationHead(nn.Module):
           drop_out = getattr(config, "dropout_rate", None)
         if drop_out is None:
           drop_out = getattr(config, "hidden_dropout_prob", None)
+        if drop_out is None:
+          drop_out = getattr(config, "dropout", None)
         assert drop_out is not None, "Didn't set dropout!"
         self.dropout = nn.Dropout(drop_out)
         self.out_proj = nn.Linear(config.hidden_size, config.num_labels)
@@ -174,6 +176,8 @@ class TieredModelPipeline(nn.Module):
       drop_out = getattr(embedding.config, "dropout_rate", None)
     if drop_out is None:
       drop_out = getattr(embedding.config, "hidden_dropout_prob", None)
+    if drop_out is None:
+      drop_out = getattr(embedding.config, "dropout", None)
     assert drop_out is not None, "Didn't set dropout!"
     self.dropout = nn.Dropout(drop_out)   
 
